@@ -191,4 +191,11 @@ SIMPLE_JWT = {
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://chemicalrg-d7cjcxaaa6a7a4he.southeastasia-01.azurewebsites.net',
+    'https://*.azurewebsites.net',  # This wildcard covers future Azure URLs too
+]
