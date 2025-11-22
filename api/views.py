@@ -53,7 +53,7 @@ class CSVUploadView(APIView):
             data = []
             pressures = []
             temperatures = []
-            concentrations = []
+            flowrates = []
             
             for row in reader:
                 data.append(row)
@@ -61,15 +61,18 @@ class CSVUploadView(APIView):
                     pressures.append(float(row['Pressure']))
                 if 'Temperature' in row:
                     temperatures.append(float(row['Temperature']))
-                if 'Concentration' in row:
-                    concentrations.append(float(row['Concentration']))
+                # Check for Flowrate first, then fallback to Concentration
+                if 'Flowrate' in row:
+                    flowrates.append(float(row['Flowrate']))
+                elif 'Concentration' in row:
+                    flowrates.append(float(row['Concentration']))
             
             if not data:
                 return Response({'error': 'Empty CSV'}, status=status.HTTP_400_BAD_REQUEST)
 
             avg_pressure = statistics.mean(pressures) if pressures else 0
             avg_temperature = statistics.mean(temperatures) if temperatures else 0
-            avg_concentration = statistics.mean(concentrations) if concentrations else 0
+            avg_flowrate = statistics.mean(flowrates) if flowrates else 0
             
             # Calculate type distribution
             type_counts = {}
@@ -82,7 +85,7 @@ class CSVUploadView(APIView):
             history = UploadHistory.objects.create(
                 user=request.user,
                 total_count=len(data),
-                avg_flowrate=avg_concentration,
+                avg_flowrate=avg_flowrate,
                 avg_pressure=avg_pressure,
                 avg_temperature=avg_temperature,
                 type_distribution=type_counts,
