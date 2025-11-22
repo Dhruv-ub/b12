@@ -88,10 +88,17 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/home/site/wwwroot/db.sqlite3' if os.environ.get('WEBSITE_HOSTNAME') else BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -199,3 +206,4 @@ CSRF_TRUSTED_ORIGINS = [
     'https://chemicalrg-d7cjcxaaa6a7a4he.southeastasia-01.azurewebsites.net',
     'https://*.azurewebsites.net',  # This wildcard covers future Azure URLs too
 ]
+
