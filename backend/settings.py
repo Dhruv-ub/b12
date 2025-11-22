@@ -157,6 +157,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Add this at the bottom of settings.py
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://f12-weld.vercel.app"
 ]
 
 REST_FRAMEWORK = {
@@ -204,6 +205,9 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 CSRF_TRUSTED_ORIGINS = [
     'https://chemicalrg-d7cjcxaaa6a7a4he.southeastasia-01.azurewebsites.net',
-    'https://*.azurewebsites.net',  # This wildcard covers future Azure URLs too
+    'https://*.azurewebsites.net',
+    "https://f12-weld.vercel.app",
+    "https://*.vercel.app"
 ]
+
 
